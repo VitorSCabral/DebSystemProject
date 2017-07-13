@@ -512,6 +512,50 @@
             </summary>
             <param name="friendId">Id do amigo.</param>
         </member>
+        <member name="M:DebSystemProject.Controllers.DebtController.CreateDebt(DebSystemProject.Controllers.DebtViewModel)">
+            <summary>
+            Cadastra uma nova dívida. 
+            </summary>
+            <param name="debtAttribute">Objeto do débito.</param> 
+        </member>
+        <member name="M:DebSystemProject.Controllers.DebtController.GetListByFriendName(System.String)">
+            <summary>
+            Recupera todos os valores que deve receber (Ordenado por amigo).
+            </summary>
+            <param name="name">Nome do credor.</param>                
+        </member>
+        <member name="M:DebSystemProject.Controllers.DebtController.GetListMyDebtsByFriendName(System.String)">
+            <summary>
+            Recupera todos os valores que deve pagar para os amigos.
+            </summary>
+            <param name="nameOut">Nome do devedor.</param>                
+        </member>
+        <member name="M:DebSystemProject.Controllers.DebtController.GetDebtById(System.Int32)">
+            <summary>
+            Recupera o débito através do Id.
+            </summary>
+            <param name="debtId">Id do débito.</param>                
+        </member>
+        <member name="M:DebSystemProject.Controllers.DebtController.UpdateDebt(DebSystemProject.Controllers.DebtViewModel,System.Int32)">
+            <summary>
+            Atualiza a dívida do amigo. 
+            </summary>
+            <param name="debtAttribute">Objeto débito.</param>
+            <param name="debtId">Id do débito.</param>        
+        </member>
+        <member name="M:DebSystemProject.Controllers.DebtController.GetTotalDebts(System.String)">
+            <summary>
+            Retorna o total em valor que deve receber.
+            </summary>
+            <param name="name">Nome do credor.</param>   
+            <returns>Total do valor receber.</returns>        
+        </member>
+        <member name="M:DebSystemProject.Controllers.DebtController.DeleteDebtById(System.Int32)">
+            <summary>
+            Deleta a dívida da tabela (físicamente).
+            </summary>
+            <param name="debtId">Id do débito.</param>
+        </member>
         <member name="F:DebSystemProject.Controllers.MessageViewModel.Code">
             <summary>Código da operação.</summary>
         </member>
@@ -529,6 +573,24 @@
         </member>
         <member name="F:DebSystemProject.Controllers.FriendViewModel.Age">
             <summary>Idade do amigo.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.DebtViewModel.Id">
+            <summary>Id do débito.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.DebtViewModel.Value">
+            <summary>Valor da dívida.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.DebtViewModel.Date">
+            <summary>Data da dívida.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.DebtViewModel.Description">
+            <summary>Descrição da dívida.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.DebtViewModel.FriendNameIn">
+            <summary>Nome do credor.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.DebtViewModel.FriendNameOut">
+            <summary>Nome do devedor.</summary>
         </member>
     </members>
 </doc>

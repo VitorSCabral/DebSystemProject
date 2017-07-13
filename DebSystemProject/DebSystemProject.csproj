@@ -275,6 +275,8 @@
     <Compile Include="Models\Payment.cs">
       <DependentUpon>DebSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\DebtController.cs" />
+    <Compile Include="Models\Repository\DebtRepository.cs" />
     <Compile Include="Models\Repository\FriendRepository.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

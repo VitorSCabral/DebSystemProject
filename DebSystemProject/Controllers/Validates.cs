@@ -116,5 +116,89 @@ namespace DebSystemProject.Controllers
             }
             return Message;
         }
+
+        public String ValidateDebt(DebtViewModel debtAttribute)
+        {
+            String Message = String.Empty;
+
+            Decimal number;
+            bool TestValue = Decimal.TryParse(debtAttribute.Value, out number);
+
+            if (!TestValue)
+            {
+                Message = String.Concat(Message, "Campo Valor deve ser decimal /n ");
+            }
+
+            DateTime date;
+            bool TestDate = DateTime.TryParse(debtAttribute.Date, out date);
+
+            if (!TestDate)
+            {
+                Message = String.Concat(Message, "Campo Date deve ser no formato dd/mm/aaaa /n ");
+            }
+            if (debtAttribute.FriendNameIn == debtAttribute.FriendNameOut)
+            {
+                Message = String.Concat(Message, "O devedor deve ser diferente do amigo devido. /n ");
+            }
+
+            return Message;
+
+        }
+
+        public String ValidateUpdateDebt(DebtViewModel debtAttribute, int debtId)
+        {
+            String Message = String.Empty;
+            String testId = debtId.ToString();
+
+            if (testId == "")
+            {
+                Message = "Id deve estar preenchido. /n ";
+            }
+            if (testId.Length <= 0)
+            {
+                Message = String.Concat(Message, "Id deve ser maior que 0.");
+            }
+
+            int number = 0;
+            bool TestId = Int32.TryParse(testId, out number);
+
+            if (!TestId)
+            {
+                Message = String.Concat(Message, "Campo Id deve ser inteiro /n ");
+            }
+            else if (Message == "")
+            {
+                if (debtAttribute == null)
+                {
+                    Message = String.Concat(Message, "Não pode ser enviado um débito em branco. /n ");
+                }
+                if (debtAttribute.Value.Length <= 0)
+                {
+                    Message = String.Concat(Message, "Campo valor não pode ser nulo. /n ");
+                }
+
+                DateTime date;
+                bool TestDate = DateTime.TryParse(debtAttribute.Date, out date);
+
+                if (!TestDate)
+                {
+                    Message = String.Concat(Message, "Campo Date deve ser no formato dd/mm/aaaa /n ");
+                }
+                if (debtAttribute.FriendNameIn == debtAttribute.FriendNameOut)
+                {
+                    Message = String.Concat(Message, "O devedor deve ser diferente do amigo devido. /n ");
+                }
+
+                Decimal value = 0;
+                bool TestValue = Decimal.TryParse(debtAttribute.Value, out value);
+
+
+                if (!TestValue)
+                {
+                    Message = String.Concat(Message, "Campo valor deve ser inteiro /n ");
+                }
+            }
+            return Message;
+        }
     }
 }

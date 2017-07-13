@@ -31,5 +31,21 @@ namespace DebSystemProject.Controllers
         public String Sex; 
         /// <summary>Idade do amigo.</summary>
         public String Age; 
-    }    
+    }
+
+    public class DebtViewModel
+    {
+        /// <summary>Id do débito.</summary>
+        public int? Id;
+        /// <summary>Valor da dívida.</summary>
+        public String Value;
+        /// <summary>Data da dívida.</summary>
+        public String Date;
+        /// <summary>Descrição da dívida.</summary>
+        public String Description;
+        /// <summary>Nome do credor.</summary>
+        public String FriendNameIn;
+        /// <summary>Nome do devedor.</summary>
+        public String FriendNameOut;
+    }
 }
