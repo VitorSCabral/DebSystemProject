@@ -200,5 +200,77 @@ namespace DebSystemProject.Controllers
             }
             return Message;
         }
+
+        public String ValidatePayment(PaymentViewModel paymentAttribute)
+        {
+            String Message = String.Empty;
+
+            Decimal number;
+            bool TestValue = Decimal.TryParse(paymentAttribute.Value, out number);
+
+            if (!TestValue)
+            {
+                Message = String.Concat(Message, "Campo Valor deve ser decimal /n ");
+            }
+
+            DateTime date;
+            bool TestDate = DateTime.TryParse(paymentAttribute.Date, out date);
+
+            if (!TestDate)
+            {
+                Message = String.Concat(Message, "Campo Date deve ser no formato dd/mm/aaaa /n ");
+            }
+            if (paymentAttribute.FriendNameIn == paymentAttribute.FriendNameOut)
+            {
+                Message = String.Concat(Message, "O pagador deve ser diferente do amigo pagador. /n ");
+            }
+
+            return Message;
+        }
+
+        public String ValidateUpdatePayment(PaymentViewModel paymentAttribute, int paymentId)
+        {
+            String Message = String.Empty;
+            String testId = paymentId.ToString();
+
+            if (testId == "")
+            {
+                Message = "Id deve estar preenchido. /n ";
+            }
+
+            if (testId.Length <= 0)
+            {
+                Message = String.Concat(Message, "Id deve ser maior que 0.");
+            }
+
+            int number;
+            bool TestId = Int32.TryParse(testId, out number);
+
+            if (!TestId)
+            {
+                Message = String.Concat(Message, "Campo Id deve ser inteiro /n ");
+            }
+            else if (Message == "")
+            {
+                if (paymentAttribute == null)
+                {
+                    Message = String.Concat(Message, "Não pode ser enviado pagamento em branco. /n ");
+                }
+
+                if (paymentAttribute.Value.Length <= 0)
+                {
+                    Message = String.Concat(Message, "Campo valor não pode ser nulo. /n ");
+                }
+
+                Decimal value = 0;
+                bool TestValue = Decimal.TryParse(paymentAttribute.Value, out value);
+
+                if (!TestValue)
+                {
+                    Message = String.Concat(Message, "Campo valor deve ser inteiro /n ");
+                }
+            }
+            return Message;
+        }
     }
 }

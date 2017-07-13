@@ -48,4 +48,18 @@ namespace DebSystemProject.Controllers
         /// <summary>Nome do devedor.</summary>
         public String FriendNameOut;
     }
+
+    public class PaymentViewModel
+    {
+        /// <summary>Id do pagamento.</summary>
+        public int? Id;
+        /// <summary>Valor do pagamento.</summary>
+        public String Value;
+        /// <summary>Data da realização do pagamento.</summary>
+        public String Date;
+        /// <summary>Nome do devedor.</summary>
+        public String FriendNameOut;
+        /// <summary>Nome do credor.</summary>
+        public String FriendNameIn;
+    }
 }

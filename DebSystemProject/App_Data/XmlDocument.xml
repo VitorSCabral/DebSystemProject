@@ -481,6 +481,38 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:DebSystemProject.Controllers.PaymentController.CreatePayment(System.Int32)">
+            <summary>
+            Insere um pagamento, e apaga o débito com o amigo.    
+            </summary>
+            <param name="debtId">Id do débito.</param>
+        </member>
+        <member name="M:DebSystemProject.Controllers.PaymentController.GetListMyPaymentsByFriendName(System.String)">
+            <summary>
+            Lista todos os valores quitados com meus amigos.
+            </summary>
+            <param name="nameOut">Nome do devedor</param>
+            <returns></returns>
+        </member>
+        <member name="M:DebSystemProject.Controllers.PaymentController.GetPaymentById(System.Int32)">
+            <summary>
+            Recupera o pagamento através do Id.
+            </summary>
+            <param name="paymentId">Id do pagamento.</param>        
+        </member>
+        <member name="M:DebSystemProject.Controllers.PaymentController.UpdatePayment(DebSystemProject.Controllers.PaymentViewModel,System.Int32)">
+            <summary>
+            Atualiza o pagamento do amigo. 
+            </summary>
+            <param name="paymentAttribute">Objeto pagamento.</param>
+            <param name="paymentId">Id do pagamento.</param>        
+        </member>
+        <member name="M:DebSystemProject.Controllers.PaymentController.DeletePaymentById(System.Int32)">
+            <summary>
+            Deleta o pagamento da tabela (físicamente).
+            </summary>
+            <param name="paymentId">Id do pagamento.</param>
+        </member>
         <member name="M:DebSystemProject.Controllers.FriendController.CreateFriend(DebSystemProject.Controllers.FriendViewModel)">
             <summary>
             Cadastra um novo amigo. 
@@ -536,19 +568,19 @@
             </summary>
             <param name="debtId">Id do débito.</param>                
         </member>
-        <member name="M:DebSystemProject.Controllers.DebtController.UpdateDebt(DebSystemProject.Controllers.DebtViewModel,System.Int32)">
-            <summary>
-            Atualiza a dívida do amigo. 
-            </summary>
-            <param name="debtAttribute">Objeto débito.</param>
-            <param name="debtId">Id do débito.</param>        
-        </member>
         <member name="M:DebSystemProject.Controllers.DebtController.GetTotalDebts(System.String)">
             <summary>
             Retorna o total em valor que deve receber.
             </summary>
             <param name="name">Nome do credor.</param>   
             <returns>Total do valor receber.</returns>        
+        </member>
+        <member name="M:DebSystemProject.Controllers.DebtController.UpdateDebt(DebSystemProject.Controllers.DebtViewModel,System.Int32)">
+            <summary>
+            Atualiza a dívida do amigo. 
+            </summary>
+            <param name="debtAttribute">Objeto débito.</param>
+            <param name="debtId">Id do débito.</param>        
         </member>
         <member name="M:DebSystemProject.Controllers.DebtController.DeleteDebtById(System.Int32)">
             <summary>
@@ -591,6 +623,21 @@
         </member>
         <member name="F:DebSystemProject.Controllers.DebtViewModel.FriendNameOut">
             <summary>Nome do devedor.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.PaymentViewModel.Id">
+            <summary>Id do pagamento.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.PaymentViewModel.Value">
+            <summary>Valor do pagamento.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.PaymentViewModel.Date">
+            <summary>Data da realização do pagamento.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.PaymentViewModel.FriendNameOut">
+            <summary>Nome do devedor.</summary>
+        </member>
+        <member name="F:DebSystemProject.Controllers.PaymentViewModel.FriendNameIn">
+            <summary>Nome do credor.</summary>
         </member>
     </members>
 </doc>
