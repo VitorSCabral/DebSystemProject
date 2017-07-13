@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DebSystemDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Debt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="30" Scale="7" />
+          <Property Name="Date" Type="datetime2" Precision="7" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="FriendIdIn" Type="int" />
+          <Property Name="FriendIdOut" Type="int" />
+        </EntityType>
+        <EntityType Name="Friend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="100" />
+          <Property Name="Sex" Type="nchar" MaxLength="1" />
+          <Property Name="Age" Type="int" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="30" Scale="7" />
+          <Property Name="Date" Type="datetime2" Precision="7" />
+          <Property Name="FriendIdIn" Type="int" />
+          <Property Name="FriendIdOut" Type="int" />
+        </EntityType>
+        <Association Name="FK_Debt_FriendIn">
+          <End Role="Friend" Type="Self.Friend" Multiplicity="0..1" />
+          <End Role="Debt" Type="Self.Debt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Friend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Debt">
+              <PropertyRef Name="FriendIdIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debt_FriendOut">
+          <End Role="Friend" Type="Self.Friend" Multiplicity="0..1" />
+          <End Role="Debt" Type="Self.Debt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Friend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Debt">
+              <PropertyRef Name="FriendIdOut" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_FriendIn">
+          <End Role="Friend" Type="Self.Friend" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Friend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="FriendIdIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_FriendOut">
+          <End Role="Friend" Type="Self.Friend" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Friend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="FriendIdOut" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DebSystemDatabaseModelStoreContainer">
+          <EntitySet Name="Debt" EntityType="Self.Debt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Friend" EntityType="Self.Friend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Debt_FriendIn" Association="Self.FK_Debt_FriendIn">
+            <End Role="Friend" EntitySet="Friend" />
+            <End Role="Debt" EntitySet="Debt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debt_FriendOut" Association="Self.FK_Debt_FriendOut">
+            <End Role="Friend" EntitySet="Friend" />
+            <End Role="Debt" EntitySet="Debt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_FriendIn" Association="Self.FK_Payment_FriendIn">
+            <End Role="Friend" EntitySet="Friend" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_FriendOut" Association="Self.FK_Payment_FriendOut">
+            <End Role="Friend" EntitySet="Friend" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DebSystemDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Friend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK_Payment_FriendIn" FromRole="Friend" ToRole="Payment" />
+          <NavigationProperty Name="Payments1" Relationship="Self.FK_Payment_FriendOut" FromRole="Friend" ToRole="Payment" />
+          <NavigationProperty Name="Debts" Relationship="DebSystemDatabaseModel.FK_Debt_FriendIn" FromRole="Friend" ToRole="Debt" />
+          <NavigationProperty Name="Debts1" Relationship="DebSystemDatabaseModel.FK_Debt_FriendOut" FromRole="Friend" ToRole="Debt" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Decimal" Precision="30" Scale="7" />
+          <Property Name="Date" Type="DateTime" Precision="7" />
+          <Property Name="FriendIdIn" Type="Int32" />
+          <Property Name="FriendIdOut" Type="Int32" />
+          <NavigationProperty Name="Friend" Relationship="Self.FK_Payment_FriendIn" FromRole="Payment" ToRole="Friend" />
+          <NavigationProperty Name="Friend1" Relationship="Self.FK_Payment_FriendOut" FromRole="Payment" ToRole="Friend" />
+        </EntityType>
+        <Association Name="FK_Payment_FriendIn">
+          <End Role="Friend" Type="Self.Friend" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Friend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="FriendIdIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_FriendOut">
+          <End Role="Friend" Type="Self.Friend" Multiplicity="0..1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Friend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="FriendIdOut" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DebSystemDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Friends" EntityType="Self.Friend" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <AssociationSet Name="FK_Payment_FriendIn" Association="Self.FK_Payment_FriendIn">
+            <End Role="Friend" EntitySet="Friends" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_FriendOut" Association="Self.FK_Payment_FriendOut">
+            <End Role="Friend" EntitySet="Friends" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <EntitySet Name="Debts" EntityType="DebSystemDatabaseModel.Debt" />
+          <AssociationSet Name="FK_Debt_FriendIn" Association="DebSystemDatabaseModel.FK_Debt_FriendIn">
+            <End Role="Friend" EntitySet="Friends" />
+            <End Role="Debt" EntitySet="Debts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debt_FriendOut" Association="DebSystemDatabaseModel.FK_Debt_FriendOut">
+            <End Role="Friend" EntitySet="Friends" />
+            <End Role="Debt" EntitySet="Debts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Debt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Decimal" Precision="30" Scale="7" />
+          <Property Name="Date" Type="DateTime" Precision="7" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FriendIdIn" Type="Int32" />
+          <Property Name="FriendIdOut" Type="Int32" />
+          <NavigationProperty Name="Friend" Relationship="DebSystemDatabaseModel.FK_Debt_FriendIn" FromRole="Debt" ToRole="Friend" />
+          <NavigationProperty Name="Friend1" Relationship="DebSystemDatabaseModel.FK_Debt_FriendOut" FromRole="Debt" ToRole="Friend" />
+        </EntityType>
+        <Association Name="FK_Debt_FriendIn">
+          <End Type="DebSystemDatabaseModel.Friend" Role="Friend" Multiplicity="0..1" />
+          <End Type="DebSystemDatabaseModel.Debt" Role="Debt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Friend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Debt">
+              <PropertyRef Name="FriendIdIn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debt_FriendOut">
+          <End Type="DebSystemDatabaseModel.Friend" Role="Friend" Multiplicity="0..1" />
+          <End Type="DebSystemDatabaseModel.Debt" Role="Debt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Friend">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Debt">
+              <PropertyRef Name="FriendIdOut" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DebSystemDatabaseModelStoreContainer" CdmEntityContainer="DebSystemDatabaseEntities">
+          <EntitySetMapping Name="Friends">
+            <EntityTypeMapping TypeName="DebSystemDatabaseModel.Friend">
+              <MappingFragment StoreEntitySet="Friend">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="DebSystemDatabaseModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FriendIdIn" ColumnName="FriendIdIn" />
+                <ScalarProperty Name="FriendIdOut" ColumnName="FriendIdOut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Debts">
+            <EntityTypeMapping TypeName="DebSystemDatabaseModel.Debt">
+              <MappingFragment StoreEntitySet="Debt">
+                <ScalarProperty Name="FriendIdOut" ColumnName="FriendIdOut" />
+                <ScalarProperty Name="FriendIdIn" ColumnName="FriendIdIn" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
